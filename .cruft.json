@@ -8,7 +8,7 @@
       "slug": "external-secrets-operator",
       "parameter_key": "external_secrets_operator",
       "test_cases": "defaults openshift",
-      "add_lib": "n",
+      "add_lib": "y",
       "add_pp": "n",
       "add_golden": "y",
       "add_matrix": "y",
