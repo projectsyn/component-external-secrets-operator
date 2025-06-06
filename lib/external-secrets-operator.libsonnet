@@ -5,16 +5,23 @@
 local kap = import 'lib/kapitan.libjsonnet';
 local kube = import 'lib/kube.libjsonnet';
 
-local SecretStore(name) =
-  kube._Object('external-secrets.io/v1', 'SecretStore', name) {
-    metadata+: {
-      annotations+: {
-        'argocd.argoproj.io/sync-options': 'SkipDryRunOnMissingResource=true',
-      },
+local argo_meta = {
+  metadata+: {
+    annotations+: {
+      'argocd.argoproj.io/sync-options': 'SkipDryRunOnMissingResource=true',
     },
-  };
+  },
+};
 
-// Export library functions here
+local SecretStore(name) =
+  kube._Object('external-secrets.io/v1', 'SecretStore', name) +
+  argo_meta;
+
+local ClusterSecretStore(name) =
+  kube._Object('external-secrets.io/v1', 'ClusterSecretStore', name) +
+  argo_meta;
+
 {
   SecretStore: SecretStore,
+  ClusterSecretStore: ClusterSecretStore,
 }

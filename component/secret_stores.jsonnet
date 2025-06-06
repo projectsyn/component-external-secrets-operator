@@ -27,6 +27,12 @@ local stores = com.generateResources(
     }
 );
 
+local clusterstores = com.generateResources(
+  params.cluster_secret_stores,
+  eso.ClusterSecretStore
+);
+
 {
   [if std.length(stores) > 0 then '20_secret_stores']: stores,
+  [if std.length(clusterstores) > 0 then '20_cluster_secret_stores']: clusterstores,
 }

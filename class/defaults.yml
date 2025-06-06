@@ -12,3 +12,4 @@ parameters:
     helm_values: {}
 
     secret_stores: {}
+    cluster_secret_stores: {}

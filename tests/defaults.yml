@@ -36,3 +36,16 @@ parameters:
                 kubernetes:
                   mountPath: kubernetes
                   role: external-secrets-operator
+
+    cluster_secret_stores:
+      k8s-vault:
+        spec:
+          provider:
+            vault:
+              server: "https://vault.c-test-1234.example.com"
+              path: "secret"
+              version: "v2"
+              auth:
+                kubernetes:
+                  mountPath: kubernetes
+                  role: external-secrets-operator
