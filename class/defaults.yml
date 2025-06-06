@@ -3,3 +3,10 @@ parameters:
     =_metadata:
       multi_tenant: true
     namespace: syn-external-secrets-operator
+
+    charts:
+      external-secrets:
+        source: https://charts.external-secrets.io
+        version: v0.17.0
+
+    helm_values: {}
