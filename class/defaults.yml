@@ -1,0 +1,5 @@
+parameters:
+  external_secrets_operator:
+    =_metadata:
+      multi_tenant: true
+    namespace: syn-external-secrets-operator

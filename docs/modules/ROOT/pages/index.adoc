@@ -1,0 +1,5 @@
+= external-secrets-operator
+
+external-secrets-operator is a Commodore component to manage external-secrets-operator.
+
+See the xref:references/parameters.adoc[parameters] reference for further details.
