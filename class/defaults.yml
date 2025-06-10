@@ -4,12 +4,21 @@ parameters:
       multi_tenant: true
     namespace: syn-external-secrets-operator
 
+    images:
+      external-secrets:
+        registry: oci.external-secrets.io
+        repository: external-secrets/external-secrets
+        tag: v0.17.0
+
     charts:
       external-secrets:
         source: https://charts.external-secrets.io
         version: v0.17.0
 
-    helm_values: {}
+    helm_values:
+      image:
+        repository: ${external_secrets_operator:images:external-secrets:registry}/${external_secrets_operator:images:external-secrets:repository}
+        tag: ${external_secrets_operator:images:external-secrets:tag}
 
     secret_stores: {}
     cluster_secret_stores: {}
