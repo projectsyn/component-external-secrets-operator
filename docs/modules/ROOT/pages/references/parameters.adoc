@@ -10,10 +10,55 @@ default:: `syn-external-secrets-operator`
 
 The namespace in which to deploy this component.
 
+== `images`
 
-== Example
+[horizontal]
+type:: object
+default:: https://github.com/projectsyn/component-external-secrets-operator/blob/master/class/defaults.yml[See `class/defaults.yml`]
 
-[source,yaml]
-----
-namespace: example-namespace
-----
+The container image to use for the external-secrets operator.
+
+== `charts`
+
+[horizontal]
+type:: object
+default:: https://github.com/projectsyn/component-external-secrets-operator/blob/master/class/defaults.yml[See `class/defaults.yml`]
+
+The Helm chart to use for the external-secrets operator.
+
+== `helm_values`
+
+[horizontal]
+type:: object
+default:: https://github.com/projectsyn/component-external-secrets-operator/blob/master/class/defaults.yml[See `class/defaults.yml`]
+
+Helm values for the external-secrets operator Helm chart.
+
+[NOTE]
+====
+The component automatically sets `global.compatibility.openshift.adaptSecurityContext=force` when it's rendered for an OpenShift cluster.
+
+The component checks whether it's rendered for an OpenShift cluster by checking if `facts.distribution` is set to `openshift4` or `oke`.
+====
+
+== `secret_stores`
+
+[horizontal]
+type:: object
+default:: `{}`
+
+Each entry of this parameter is rendered as an external-secrets [`SecretStore`].
+The key can be just a name, or `<namespace>/<name>`.
+If the key is just a name, the resulting `SecretStore` is deployed in the namespace in which the operator is deployed.
+The component sets `metadata.name` and `metadata.namespace` based on the object key.
+The value is used as is and setting `metadata.name` or `metadata.namespace` overrides the values parsed from the object key.
+
+== `cluster_secret_stores`
+
+[horizontal]
+type:: object
+default:: `{}`
+
+Each entry of this parameter is rendered as an external-secrets [`ClusterSecretStore`].
+The key is used as `metadata.name` of the resulting resource.
+The value is used as is.
