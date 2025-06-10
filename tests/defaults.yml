@@ -1,3 +1,51 @@
-# Overwrite parameters here
+parameters:
+  external_secrets_operator:
+    secret_stores:
+      k8s-vault:
+        spec:
+          provider:
+            vault:
+              server: "https://vault.c-test-1234.example.com"
+              path: "secret"
+              version: "v2"
+              auth:
+                kubernetes:
+                  mountPath: kubernetes
+                  role: external-secrets-operator
+      foobar/k8s-vault:
+        spec:
+          provider:
+            vault:
+              server: "https://vault.c-test-1234.example.com"
+              path: "secret"
+              version: "v2"
+              auth:
+                kubernetes:
+                  mountPath: kubernetes
+                  role: external-secrets-operator
+      testing/k8s-vault:
+        metadata:
+          namespace: foo
+        spec:
+          provider:
+            vault:
+              server: "https://vault.c-test-1234.example.com"
+              path: "secret"
+              version: "v2"
+              auth:
+                kubernetes:
+                  mountPath: kubernetes
+                  role: external-secrets-operator
 
-# parameters: {...}
+    cluster_secret_stores:
+      k8s-vault:
+        spec:
+          provider:
+            vault:
+              server: "https://vault.c-test-1234.example.com"
+              path: "secret"
+              version: "v2"
+              auth:
+                kubernetes:
+                  mountPath: kubernetes
+                  role: external-secrets-operator

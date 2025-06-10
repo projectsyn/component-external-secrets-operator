@@ -37,6 +37,13 @@
         "automerge",
         "bump:patch"
       ]
+    },
+    {
+      "matchPackageNames": [
+        "external-secrets",
+        "oci.external-secrets.io/external-secrets/external-secrets"
+      ],
+      "groupName": "dependency external-secrets"
     }
   ]
 }
