@@ -70,8 +70,10 @@ type:: object
 default:: `{}`
 
 Each entry of this parameter is rendered as an external-secrets [`ECRAuthorizationToken`].
-The key is used as `metadata.name` of the resulting resource.
-The value is used as is.
+The key can be just a name, or `<namespace>/<name>`.
+If the key is just a name, the resulting `ECRAuthorizationToken` is deployed in the namespace in which the operator is deployed.
+The component sets `metadata.name` and `metadata.namespace` based on the object key.
+The value is used as is and setting `metadata.name` or `metadata.namespace` overrides the values parsed from the object key.
 
 == `external_secrets`
 
