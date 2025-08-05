@@ -21,7 +21,18 @@ local ClusterSecretStore(name) =
   kube._Object('external-secrets.io/v1', 'ClusterSecretStore', name) +
   argo_meta;
 
+local ExternalSecret(name) =
+  kube._Object('external-secrets.io/v1', 'ExternalSecret', name) +
+  argo_meta;
+
+local ECRAuthorizationToken(name) =
+  kube._Object('generators.external-secrets.io/v1alpha1', 'ECRAuthorizationToken', name) +
+  argo_meta;
+
 {
   SecretStore: SecretStore,
   ClusterSecretStore: ClusterSecretStore,
+  ExternalSecret: ExternalSecret,
+  ECRAuthorizationToken: ECRAuthorizationToken,
+
 }

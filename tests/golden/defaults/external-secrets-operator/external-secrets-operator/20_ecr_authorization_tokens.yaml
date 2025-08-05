@@ -1,0 +1,20 @@
+apiVersion: generators.external-secrets.io/v1alpha1
+kind: ECRAuthorizationToken
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    name: ecr-auth-token
+  name: ecr-auth-token
+  namespace: testing
+spec:
+  auth:
+    secretRef:
+      accessKeyIDSecretRef:
+        key: accesskey
+        name: my-ecr-access-key
+      secretAccessKeySecretRef:
+        key: secretkey
+        name: my-ecr-secret-key
+  region: the-region
+  role: my-role

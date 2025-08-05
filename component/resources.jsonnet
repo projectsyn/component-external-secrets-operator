@@ -32,7 +32,31 @@ local clusterstores = com.generateResources(
   eso.ClusterSecretStore
 );
 
+local external_secrets = com.generateResources(
+  params.external_secrets,
+  function(name)
+    local nsName = namespacedName(name);
+    eso.ExternalSecret(nsName.name) {
+      metadata+: {
+        namespace: nsName.namespace,
+      },
+    }
+);
+
+local ecr_authorization_tokens = com.generateResources(
+  params.ecr_authorization_tokens,
+  function(name)
+    local nsName = namespacedName(name);
+    eso.ECRAuthorizationToken(nsName.name) {
+      metadata+: {
+        namespace: nsName.namespace,
+      },
+    }
+);
+
 {
   [if std.length(stores) > 0 then '20_secret_stores']: stores,
   [if std.length(clusterstores) > 0 then '20_cluster_secret_stores']: clusterstores,
+  [if std.length(external_secrets) > 0 then '20_external_secrets']: external_secrets,
+  [if std.length(ecr_authorization_tokens) > 0 then '20_ecr_authorization_tokens']: ecr_authorization_tokens,
 }

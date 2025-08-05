@@ -49,3 +49,58 @@ parameters:
                 kubernetes:
                   mountPath: kubernetes
                   role: external-secrets-operator
+
+    ecr_authorization_tokens:
+      testing/ecr-auth-token:
+        spec:
+          auth:
+            secretRef:
+              accessKeyIDSecretRef:
+                key: accesskey
+                name: my-ecr-access-key
+              secretAccessKeySecretRef:
+                key: secretkey
+                name: my-ecr-secret-key
+          region: the-region
+          role: my-role
+
+    external_secrets:
+      testing/big-secret-generated:
+        spec:
+          refreshInterval: "1h"
+          target:
+            name: ecr-generated-secret
+            template:
+              type: kubernetes.io/dockerconfigjson
+              metadata:
+                annotations:
+                  expiresAt: 1h
+              data:
+                .dockerconfigjson: |
+                  {
+                    "auths": {
+                      "{{ .proxy_endpoint | replace "https://" "" }}": {
+                        "username": "{{ .username }}",
+                        "password": "{{ .password }}",
+                        "auth": "{{ printf "%s:%s" .username .password | b64enc }}"
+                      }
+                    }
+                  }
+          dataFrom:
+            - sourceRef:
+                generatorRef:
+                  apiVersion: generators.external-secrets.io/v1alpha1
+                  kind: ECRAuthorizationToken
+          name: "the-generator"
+
+      testing/simple-secret:
+        spec:
+          target:
+            name: basic-auth-password
+          refreshInterval: "1h"
+          dataFrom:
+            - sourceRef:
+                generatorRef:
+                  apiVersion: generators.external-secrets.io/v1alpha1
+                  kind: ClusterGenerator
+                  name: "my-password-generator"
