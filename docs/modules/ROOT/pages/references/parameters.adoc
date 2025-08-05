@@ -62,3 +62,23 @@ default:: `{}`
 Each entry of this parameter is rendered as an external-secrets [`ClusterSecretStore`].
 The key is used as `metadata.name` of the resulting resource.
 The value is used as is.
+
+== `ecr_authorization_tokens`
+
+[horizontal]
+type:: object
+default:: `{}`
+
+Each entry of this parameter is rendered as an external-secrets [`ECRAuthorizationToken`].
+The key is used as `metadata.name` of the resulting resource.
+The value is used as is.
+
+== `external_secrets`
+
+[horizontal]
+type:: object
+default:: `{}`
+
+Each entry of this parameter is rendered as an external-secrets [`ExternalSecret`].
+The key is used as `metadata.name` of the resulting resource.
+The value is used as is.
