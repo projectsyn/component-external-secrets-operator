@@ -24,3 +24,5 @@ parameters:
     cluster_secret_stores: {}
     ecr_authorization_tokens: {}
     external_secrets: {}
+
+    secrets: {}
