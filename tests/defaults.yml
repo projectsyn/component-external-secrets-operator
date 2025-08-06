@@ -104,3 +104,13 @@ parameters:
                   apiVersion: generators.external-secrets.io/v1alpha1
                   kind: ClusterGenerator
                   name: "my-password-generator"
+
+    secrets:
+      my-secret:
+        stringData:
+          secret-key: '?{vaultkv:${cluster:tenant}/${cluster:name}/secret-value}'
+      my-other-secret:
+        metadata:
+          namespace: testing
+        stringData:
+          secret-key: '?{vaultkv:${cluster:tenant}/${cluster:name}/other-secret}'

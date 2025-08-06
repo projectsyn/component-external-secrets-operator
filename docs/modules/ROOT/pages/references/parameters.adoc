@@ -86,3 +86,7 @@ The key can be just a name, or `<namespace>/<name>`.
 If the key is just a name, the resulting `ExternalSecret` is deployed in the namespace in which the operator is deployed.
 The component sets `metadata.name` and `metadata.namespace` based on the object key.
 The value is used as is and setting `metadata.name` or `metadata.namespace` overrides the values parsed from the object key.
+
+== `secrets`
+A dict of secrets to create in the namespace.
+The key is the name of the secret, the value is the content of the secret.
