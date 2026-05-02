@@ -5,8 +5,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v0.18.0
-    helm.sh/chart: external-secrets-0.18.0
+    app.kubernetes.io/version: v0.20.4
+    helm.sh/chart: external-secrets-0.20.4
   name: external-secrets-controller
 rules:
   - apiGroups:
@@ -64,6 +64,7 @@ rules:
       - generators.external-secrets.io
     resources:
       - acraccesstokens
+      - cloudsmithaccesstokens
       - clustergenerators
       - ecrauthorizationtokens
       - fakes
@@ -71,6 +72,7 @@ rules:
       - githubaccesstokens
       - quayaccesstokens
       - passwords
+      - sshkeys
       - stssessiontokens
       - uuids
       - vaultdynamicsecrets
@@ -90,6 +92,13 @@ rules:
       - get
       - list
       - watch
+  - apiGroups:
+      - ''
+    resources:
+      - namespaces
+    verbs:
+      - update
+      - patch
   - apiGroups:
       - ''
     resources:
@@ -147,8 +156,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v0.18.0
-    helm.sh/chart: external-secrets-0.18.0
+    app.kubernetes.io/version: v0.20.4
+    helm.sh/chart: external-secrets-0.20.4
     rbac.authorization.k8s.io/aggregate-to-admin: 'true'
     rbac.authorization.k8s.io/aggregate-to-edit: 'true'
     rbac.authorization.k8s.io/aggregate-to-view: 'true'
@@ -170,6 +179,7 @@ rules:
       - generators.external-secrets.io
     resources:
       - acraccesstokens
+      - cloudsmithaccesstokens
       - clustergenerators
       - ecrauthorizationtokens
       - fakes
@@ -177,11 +187,13 @@ rules:
       - githubaccesstokens
       - quayaccesstokens
       - passwords
+      - sshkeys
       - vaultdynamicsecrets
       - webhooks
       - grafanas
       - generatorstates
       - mfas
+      - uuids
     verbs:
       - get
       - watch
@@ -194,8 +206,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v0.18.0
-    helm.sh/chart: external-secrets-0.18.0
+    app.kubernetes.io/version: v0.20.4
+    helm.sh/chart: external-secrets-0.20.4
     rbac.authorization.k8s.io/aggregate-to-admin: 'true'
     rbac.authorization.k8s.io/aggregate-to-edit: 'true'
   name: external-secrets-edit
@@ -218,6 +230,7 @@ rules:
       - generators.external-secrets.io
     resources:
       - acraccesstokens
+      - cloudsmithaccesstokens
       - clustergenerators
       - ecrauthorizationtokens
       - fakes
@@ -225,11 +238,13 @@ rules:
       - githubaccesstokens
       - quayaccesstokens
       - passwords
+      - sshkeys
       - vaultdynamicsecrets
       - webhooks
       - grafanas
       - generatorstates
       - mfas
+      - uuids
     verbs:
       - create
       - delete
@@ -244,8 +259,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v0.18.0
-    helm.sh/chart: external-secrets-0.18.0
+    app.kubernetes.io/version: v0.20.4
+    helm.sh/chart: external-secrets-0.20.4
     servicebinding.io/controller: 'true'
   name: external-secrets-servicebindings
 rules:
@@ -266,8 +281,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v0.18.0
-    helm.sh/chart: external-secrets-0.18.0
+    app.kubernetes.io/version: v0.20.4
+    helm.sh/chart: external-secrets-0.20.4
   name: external-secrets-controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -285,8 +300,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v0.18.0
-    helm.sh/chart: external-secrets-0.18.0
+    app.kubernetes.io/version: v0.20.4
+    helm.sh/chart: external-secrets-0.20.4
   name: external-secrets-leaderelection
   namespace: syn-external-secrets-operator
 rules:
@@ -323,8 +338,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v0.18.0
-    helm.sh/chart: external-secrets-0.18.0
+    app.kubernetes.io/version: v0.20.4
+    helm.sh/chart: external-secrets-0.20.4
   name: external-secrets-leaderelection
   namespace: syn-external-secrets-operator
 roleRef:
