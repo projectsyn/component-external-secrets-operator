@@ -13,7 +13,7 @@ parameters:
     charts:
       external-secrets:
         source: https://charts.external-secrets.io
-        version: 0.18.0
+        version: 0.18.2
 
     helm_values:
       image:
