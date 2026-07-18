@@ -5,9 +5,9 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-webhook
-    app.kubernetes.io/version: v0.18.0
+    app.kubernetes.io/version: v2.8.0
     external-secrets.io/component: webhook
-    helm.sh/chart: external-secrets-0.18.0
+    helm.sh/chart: external-secrets-2.8.0
   name: secretstore-validate
 webhooks:
   - admissionReviewVersions:
@@ -18,6 +18,7 @@ webhooks:
         name: external-secrets-webhook
         namespace: syn-external-secrets-operator
         path: /validate-external-secrets-io-v1-secretstore
+    failurePolicy: Fail
     name: validate.secretstore.external-secrets.io
     rules:
       - apiGroups:
@@ -41,6 +42,7 @@ webhooks:
         name: external-secrets-webhook
         namespace: syn-external-secrets-operator
         path: /validate-external-secrets-io-v1-clustersecretstore
+    failurePolicy: Fail
     name: validate.clustersecretstore.external-secrets.io
     rules:
       - apiGroups:
@@ -64,9 +66,9 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-webhook
-    app.kubernetes.io/version: v0.18.0
+    app.kubernetes.io/version: v2.8.0
     external-secrets.io/component: webhook
-    helm.sh/chart: external-secrets-0.18.0
+    helm.sh/chart: external-secrets-2.8.0
   name: externalsecret-validate
 webhooks:
   - admissionReviewVersions:
