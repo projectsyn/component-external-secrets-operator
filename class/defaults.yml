@@ -6,9 +6,9 @@ parameters:
 
     images:
       external-secrets:
-        registry: oci.external-secrets.io
+        registry: ghcr.io
         repository: external-secrets/external-secrets
-        tag: v0.17.0
+        tag: v2.8.0
 
     charts:
       external-secrets:
