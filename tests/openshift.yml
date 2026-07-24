@@ -1,3 +1,9 @@
 parameters:
   facts:
     distribution: openshift4
+
+  external_secrets_operator:
+    namespaceAnnotations:
+      test: "1"
+    namespaceLabels:
+      test: "1"

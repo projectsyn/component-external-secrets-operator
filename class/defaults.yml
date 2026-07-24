@@ -4,6 +4,9 @@ parameters:
       multi_tenant: true
     namespace: syn-external-secrets-operator
 
+    namespaceAnnotations: {}
+    namespaceLabels: {}
+
     images:
       external-secrets:
         registry: ghcr.io
