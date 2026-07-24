@@ -19,6 +19,9 @@ parameters:
       image:
         repository: ${external_secrets_operator:images:external-secrets:registry}/${external_secrets_operator:images:external-secrets:repository}
         tag: ${external_secrets_operator:images:external-secrets:tag}
+      serviceMonitor:
+        enabled: true
+        renderMode: alwaysRender
 
     secret_stores: {}
     cluster_secret_stores: {}
