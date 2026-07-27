@@ -4,6 +4,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/metrics: cert-controller
     app.kubernetes.io/name: external-secrets-cert-controller
     app.kubernetes.io/version: v2.8.0
     helm.sh/chart: external-secrets-2.8.0
@@ -102,6 +103,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/metrics: cert-controller
     app.kubernetes.io/name: external-secrets-cert-controller
     app.kubernetes.io/version: v2.8.0
     helm.sh/chart: external-secrets-2.8.0
