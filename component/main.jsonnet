@@ -11,7 +11,8 @@ local params = inv.parameters.external_secrets_operator;
     metadata+: {
       labels+: {
         'openshift.io/cluster-monitoring': 'true',
-      },
+      } + params.namespaceLabels,
+      annotations+: params.namespaceAnnotations,
     },
   },
 }

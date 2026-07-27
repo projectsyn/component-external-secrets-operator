@@ -1,8 +1,10 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  annotations: {}
+  annotations:
+    test: '1'
   labels:
     name: syn-external-secrets-operator
     openshift.io/cluster-monitoring: 'true'
+    test: '1'
   name: syn-external-secrets-operator
