@@ -5,8 +5,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v2.8.0
-    helm.sh/chart: external-secrets-2.8.0
+    app.kubernetes.io/version: v2.9.0
+    helm.sh/chart: external-secrets-2.9.0
   name: external-secrets-controller
 rules:
   - apiGroups:
@@ -158,8 +158,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v2.8.0
-    helm.sh/chart: external-secrets-2.8.0
+    app.kubernetes.io/version: v2.9.0
+    helm.sh/chart: external-secrets-2.9.0
     rbac.authorization.k8s.io/aggregate-to-admin: 'true'
     rbac.authorization.k8s.io/aggregate-to-edit: 'true'
     rbac.authorization.k8s.io/aggregate-to-view: 'true'
@@ -210,8 +210,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v2.8.0
-    helm.sh/chart: external-secrets-2.8.0
+    app.kubernetes.io/version: v2.9.0
+    helm.sh/chart: external-secrets-2.9.0
     rbac.authorization.k8s.io/aggregate-to-admin: 'true'
     rbac.authorization.k8s.io/aggregate-to-edit: 'true'
   name: external-secrets-edit
@@ -265,8 +265,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v2.8.0
-    helm.sh/chart: external-secrets-2.8.0
+    app.kubernetes.io/version: v2.9.0
+    helm.sh/chart: external-secrets-2.9.0
     servicebinding.io/controller: 'true'
   name: external-secrets-servicebindings
 rules:
@@ -287,8 +287,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v2.8.0
-    helm.sh/chart: external-secrets-2.8.0
+    app.kubernetes.io/version: v2.9.0
+    helm.sh/chart: external-secrets-2.9.0
   name: external-secrets-controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -306,8 +306,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v2.8.0
-    helm.sh/chart: external-secrets-2.8.0
+    app.kubernetes.io/version: v2.9.0
+    helm.sh/chart: external-secrets-2.9.0
   name: external-secrets-leaderelection
   namespace: syn-external-secrets-operator
 rules:
@@ -344,8 +344,8 @@ metadata:
     app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
-    app.kubernetes.io/version: v2.8.0
-    helm.sh/chart: external-secrets-2.8.0
+    app.kubernetes.io/version: v2.9.0
+    helm.sh/chart: external-secrets-2.9.0
   name: external-secrets-leaderelection
   namespace: syn-external-secrets-operator
 roleRef:
