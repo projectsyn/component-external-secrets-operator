@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    name: external-secrets-operator-custom
+  name: external-secrets-operator-custom
+spec:
+  groups:
+    - name: external-secrets-operator-custom.rules
+      rules:
+        - alert: FooTesting
+          annotations:
+            summary: footest
+          expr: vector(1)
+          labels:
+            syn: 'true'
+            syn_component: external-secrets-operator
