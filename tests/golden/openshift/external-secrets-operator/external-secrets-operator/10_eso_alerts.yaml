@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    name: external-secrets-operator
+  name: external-secrets-operator
+spec:
+  groups:
+    - name: external-secrets-operator.rules
+      rules:
+        - alert: ExternalSecretNotReady
+          annotations:
+            description: |
+              ExternalSecret {{ $labels.namespace }}/{{ $labels.name }} has been
+              Ready=False for 10m. Check status conditions and provider
+              connectivity.
+            summary: 'ExternalSecret not ready: {{ $labels.namespace }}/{{ $labels.name
+              }}'
+          expr: max by (namespace, name) (externalsecret_status_condition{condition="Ready",status="False"})
+            == 1
+          for: 10m
+          labels:
+            severity: warning
+            syn: 'true'
+            syn_component: external-secrets-operator
