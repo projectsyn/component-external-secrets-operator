@@ -18,7 +18,9 @@ local eso_group = {
     {
       local this = self,
       alert: 'ExternalSecretNotReady',
-      expr: 'max by (namespace, name) (externalsecret_status_condition{condition="Ready",status="False"}) == 1',
+      expr: |||
+        max by (namespace, name) (externalsecret_status_condition{condition="Ready",status="False"}) == 1
+      |||,
       'for': '10m',
       labels: {
         severity: 'warning',
@@ -26,9 +28,68 @@ local eso_group = {
       annotations: {
         summary: 'ExternalSecret not ready: {{ $labels.namespace }}/{{ $labels.name }}',
         description: |||
-            ExternalSecret {{ $labels.namespace }}/{{ $labels.name }} has been
-            Ready=False for %s. Check status conditions and provider
-            connectivity.
+          ExternalSecret {{ $labels.namespace }}/{{ $labels.name }} has been Ready=False for %s.
+          Check status conditions and provider connectivity.
+        ||| % this['for'],
+      },
+    },
+    {
+      local this = self,
+      alert: 'ExternalSecretsWebhookErrors',
+      expr: |||
+        sum(increase(controller_runtime_webhook_requests_total{service=~".*external-secrets.*",code="500"}[5m])) > 0
+      |||,
+      'for': '5m',
+      labels: {
+        severity: 'critical',
+      },
+      annotations: {
+        summary: 'external-secrets admission webhook returning HTTP 500',
+        description: |||
+          Webhook has returned {{ $value }} HTTP 500s in %s.
+          If failurePolicy=Fail, creating/updating ExternalSecrets and SecretStores is blocked cluster-wide.
+        ||| % this['for'],
+      },
+    },
+    {
+      local this = self,
+      alert: 'ExternalSecretsReconcileErrorRateHigh',
+      expr: |||
+        (
+          sum by (controller) (increase(controller_runtime_reconcile_total{service=~".*external-secrets.*",result="error"}[15m]))
+          /
+          sum by (controller) (increase(controller_runtime_reconcile_total{service=~".*external-secrets.*"}[15m]))
+        ) > 0.05
+        and
+        sum by (controller) (increase(controller_runtime_reconcile_total{service=~".*external-secrets.*"}[15m])) > 1
+      |||,
+      'for': '15m',
+      labels: {
+        severity: 'warning',
+      },
+      annotations: {
+        summary: 'High reconcile error rate: {{ $labels.controller }}',
+        description: |||
+          Controller {{ $labels.controller }} error rate is {{ $value | humanizePercentage }} over %s.
+        ||| % this['for'],
+      },
+    },
+    {
+      local this = self,
+      alert: 'ExternalSecretsProviderAPIErrorRateHigh',
+      expr: |||
+        sum by (provider) (increase(externalsecret_provider_api_calls_count{service=~".*external-secrets.*",status="error"}[15m]))
+        /
+        sum by (provider) (increase(externalsecret_provider_api_calls_count{service=~".*external-secrets.*"}[15m])) > 0.10
+      |||,
+      'for': '15m',
+      labels: {
+        severity: 'warning',
+      },
+      annotations: {
+        summary: 'High provider API error rate: {{ $labels.provider }}',
+        description: |||
+          More than 10 percent of calls to {{ $labels.provider }} failing for %s. Check provider availability, credentials and rate limits.
         ||| % this['for'],
       },
     },
