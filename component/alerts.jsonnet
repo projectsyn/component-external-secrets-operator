@@ -110,41 +110,28 @@ local eso_alerts = prom.PrometheusRule('external-secrets-operator') {
   },
 };
 
-local additional_group =
-  local parseRuleName(rname) =
-    local rparts = std.splitLimit(rname, ':', 1);
-    assert
-      std.length(rparts) == 2 :
-      'Expected custom alert rule to be prefixed with `record:` or `alert:`.';
-    assert
-      std.member([ 'alert', 'record' ], rparts[0]) :
-      'Expected custom alert rule to be prefixed with `record:` or `alert:`, got `%s:`.' % rparts[0];
-    { [rparts[0]]: rparts[1] };
-  {
-    name: 'external-secrets-operator-custom.rules',
-    rules: [
-      params.alerts.additionalRules[rname] + parseRuleName(rname)
-      for rname in std.objectFields(params.alerts.additionalRules)
-    ],
-  };
+local additional_groups = alertpatching.renderGroups({
+  'external-secrets-operator-custom.rules': params.alerts.additionalRules,
+});
 
 local additional_alerts = prom.PrometheusRule('external-secrets-operator-custom') {
   spec+: {
-    groups: [
-      alertpatching.filterPatchRules(
-        additional_group,
+    groups: std.map(
+      function(g) alertpatching.filterPatchRules(
+        g,
         ignoreNames=ignoreNames,
         patches=params.alerts.patches,
         preserveRecordingRules=true,
         patchNames=false,
       ),
-    ],
+      additional_groups,
+    ),
   },
 };
 
 if has_monitoring then {
   [if std.length(eso_alerts.spec.groups[0].rules) > 0 then
     '10_eso_alerts']: eso_alerts,
-  [if std.length(additional_group.rules) > 0 then
+  [if std.length(additional_groups[0].rules) > 0 then
     '10_custom_alerts']: additional_alerts,
 } else std.trace('Component ESO compiled for cluster that does not have monitoring, skipping alert rules generation.', {})
