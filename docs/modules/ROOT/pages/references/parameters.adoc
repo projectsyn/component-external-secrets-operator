@@ -90,3 +90,43 @@ The value is used as is and setting `metadata.name` or `metadata.namespace` over
 == `secrets`
 A dict of secrets to create in the namespace.
 The key is the name of the secret, the value is the content of the secret.
+
+== `alerts`
+
+This section allows users to configure alerts for Cilium.
+The component expects that an externally-managed Prometheus stack is running on the target cluster.
+It renders the alerts through the `alert-patching.libsonnet` and `prom.libsonnet` library aliases, which are provided by both https://github.com/appuio/component-openshift4-monitoring.git[component `openshift4-monitoring`] and https://github.com/projectsyn/component-prometheus.git[component `prometheus`].
+If neither component is present on the target cluster, no alerts are rendered.
+
+
+=== `alerts.ignoreNames`
+
+[horizontal]
+type:: list
+default:: `[]`
+
+Alerts which shouldn't be deployed.
+The list supports removal of entries by prefixing them with `~`.
+
+=== `alerts.patches`
+
+[horizontal]
+type:: dict
+default:: `{}`
+
+Patches for alerts managed by the component.
+The component expects that keys in this object match the name of an alert managed through the component.
+The value of each entry is expected to be a valid partial Prometheus rule definition.
+
+=== `alerts.additionalRules`
+
+[horizontal]
+type:: dict
+default:: `{}`
+
+This parameter allows users to configure additional Prometheus recording and alerting rules.
+The component expects that keys of this object are prefixed with either `alert:` or `record:` and will use these prefixes to create alerting or recording rules.
+The component will take the suffix of the key as the alerting or recording rule name and will set field `alert` or `record` of the rule to the suffix.
+The value of each entry will be used as the base Prometheus rule in which the `alert` or `record` field will be injected.
+
+NOTE: Parameters `alerts.ignoreNames` and `alerts.patches` are also applied to alerts defined through this parameter.
