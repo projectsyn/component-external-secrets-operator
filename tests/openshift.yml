@@ -2,8 +2,24 @@ parameters:
   facts:
     distribution: openshift4
 
+  kapitan:
+    dependencies:
+      - type: https
+        source: https://raw.githubusercontent.com/appuio/component-openshift4-monitoring/master/lib/openshift4-monitoring-prom.libsonnet
+        output_path: vendor/lib/prom.libsonnet
+      - type: https
+        source: https://raw.githubusercontent.com/appuio/component-openshift4-monitoring/master/lib/openshift4-monitoring-alert-patching.libsonnet
+        output_path: vendor/lib/alert-patching.libsonnet
+
   external_secrets_operator:
     namespaceAnnotations:
       test: "1"
     namespaceLabels:
       test: "1"
+
+    alerts:
+      additionalRules:
+        alert:FooTesting:
+          expr: vector(1)
+          annotations:
+            summary: footest

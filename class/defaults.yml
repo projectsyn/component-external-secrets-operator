@@ -32,3 +32,8 @@ parameters:
     external_secrets: {}
 
     secrets: {}
+
+    alerts:
+      ignoreNames: []
+      patches: {}
+      additionalRules: {}
