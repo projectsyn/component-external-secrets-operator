@@ -132,6 +132,6 @@ local additional_alerts = prom.PrometheusRule('external-secrets-operator-custom'
 if has_monitoring then {
   [if std.length(eso_alerts.spec.groups[0].rules) > 0 then
     '10_eso_alerts']: eso_alerts,
-  [if std.length(additional_groups[0].rules) > 0 then
+  [if std.length(additional_groups) > 0 then
     '10_custom_alerts']: additional_alerts,
 } else std.trace('Component ESO compiled for cluster that does not have monitoring, skipping alert rules generation.', {})
