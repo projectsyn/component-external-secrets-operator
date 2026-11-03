@@ -13,6 +13,10 @@ local argo_meta = {
   },
 };
 
+local generator(kind, name) =
+  kube._Object('generators.external-secrets.io/v1alpha1', kind, name) +
+  argo_meta;
+
 local SecretStore(name) =
   kube._Object('external-secrets.io/v1', 'SecretStore', name) +
   argo_meta;
@@ -25,14 +29,12 @@ local ExternalSecret(name) =
   kube._Object('external-secrets.io/v1', 'ExternalSecret', name) +
   argo_meta;
 
-local ECRAuthorizationToken(name) =
-  kube._Object('generators.external-secrets.io/v1alpha1', 'ECRAuthorizationToken', name) +
-  argo_meta;
+local ECRAuthorizationToken(name) = generator('ECRAuthorizationToken', name);
 
 {
   SecretStore: SecretStore,
   ClusterSecretStore: ClusterSecretStore,
   ExternalSecret: ExternalSecret,
   ECRAuthorizationToken: ECRAuthorizationToken,
-
+  _Generator: generator,
 }
