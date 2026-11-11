@@ -24,6 +24,10 @@ local eso_group = {
       'for': '10m',
       labels: {
         severity: 'warning',
+        // NOTE(sg): We set syn_team to `null` explicitly here, so that we
+        // don't get spammy alerts for customer-managed ExternalSecrets which
+        // are broken.
+        syn_team: null,
       },
       annotations: {
         summary: 'ExternalSecret not ready: {{ $labels.exported_namespace }}/{{ $labels.name }}',
