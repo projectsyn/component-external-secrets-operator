@@ -19,16 +19,16 @@ local eso_group = {
       local this = self,
       alert: 'ExternalSecretNotReady',
       expr: |||
-        max by (namespace, name) (externalsecret_status_condition{condition="Ready",status="False"}) == 1
+        max by (exported_namespace, name) (externalsecret_status_condition{condition="Ready",status="False"}) == 1
       |||,
       'for': '10m',
       labels: {
         severity: 'warning',
       },
       annotations: {
-        summary: 'ExternalSecret not ready: {{ $labels.namespace }}/{{ $labels.name }}',
+        summary: 'ExternalSecret not ready: {{ $labels.exported_namespace }}/{{ $labels.name }}',
         description: |||
-          ExternalSecret {{ $labels.namespace }}/{{ $labels.name }} has been Ready=False for %s.
+          ExternalSecret {{ $labels.exported_namespace }}/{{ $labels.name }} has been Ready=False for %s.
           Check status conditions and provider connectivity.
         ||| % this['for'],
       },
